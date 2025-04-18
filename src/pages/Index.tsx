@@ -1,9 +1,9 @@
 
 import React from 'react';
-import Landing from '@/pages/Landing';
+import { Navigate } from 'react-router-dom';
 
 const Index: React.FC = () => {
-  return <Landing />;
+  return <Navigate to="/home" replace />;
 };
 
 export default Index;
