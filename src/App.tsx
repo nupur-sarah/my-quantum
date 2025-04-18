@@ -13,6 +13,7 @@ import PhotosPage from "./pages/PhotosPage";
 import LettersPage from "./pages/LettersPage";
 import GamesPage from "./pages/GamesPage";
 import HugPage from "./pages/HugPage";
+import Landing from "./pages/Landing";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/landing" element={<Landing />} />
           <Route path="/" element={<Layout />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="/voice" element={<VoicePage />} />
