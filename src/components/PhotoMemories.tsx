@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Baby } from 'lucide-react';
 
 // Sample photos data
 const photos = [
@@ -36,13 +35,14 @@ const photos = [
   }
 ];
 
-// Timeline milestones
+// Updated timeline milestones
 const timeline = [
   { id: 1, title: "First Date", icon: "💕", date: "Jan 2020" },
   { id: 2, title: "Proposal", icon: "💍", date: "Dec 2021" },
   { id: 3, title: "Wedding", icon: "👰", date: "Jun 2022" },
   { id: 4, title: "Honeymoon", icon: "🏝️", date: "Jul 2022" },
-  { id: 5, title: "New Home", icon: "🏡", date: "Mar 2023" }
+  { id: 5, title: "New Home", icon: "🏡", date: "Mar 2023" },
+  { id: 6, title: "First Baby", icon: "👶", date: "Feb 2024" }
 ];
 
 const PhotoMemories: React.FC = () => {
