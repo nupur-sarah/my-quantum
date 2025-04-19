@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Baby } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Sample photos data
 const photos = [
@@ -35,7 +37,7 @@ const photos = [
   }
 ];
 
-// Updated timeline milestones
+// Timeline milestones
 const timeline = [
   { id: 1, title: "First Date", icon: "💕", date: "Jan 2020" },
   { id: 2, title: "Proposal", icon: "💍", date: "Dec 2021" },
@@ -47,25 +49,39 @@ const timeline = [
 
 const PhotoMemories: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [thenImageError, setThenImageError] = useState(false);
+  const [nowImageError, setNowImageError] = useState(false);
   
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? photos.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
+    // Reset error states when changing photos
+    setThenImageError(false);
+    setNowImageError(false);
   };
   
   const goToNext = () => {
     const isLastSlide = currentIndex === photos.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
+    // Reset error states when changing photos
+    setThenImageError(false);
+    setNowImageError(false);
   };
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, type: 'then' | 'now') => {
-    const target = e.target as HTMLImageElement;
-    const currentPhoto = photos[currentIndex];
-    target.src = type === 'then' ? currentPhoto.thenFallback : currentPhoto.nowFallback;
+  const handleThenImageError = () => {
+    console.log(`Using fallback for 'then' image of ${photos[currentIndex].title}`);
+    setThenImageError(true);
+  };
+
+  const handleNowImageError = () => {
+    console.log(`Using fallback for 'now' image of ${photos[currentIndex].title}`);
+    setNowImageError(true);
   };
   
+  const currentPhoto = photos[currentIndex];
+
   return (
     <section className="py-12 md:py-16 overflow-hidden">
       <div className="container px-4 mx-auto">
@@ -84,30 +100,32 @@ const PhotoMemories: React.FC = () => {
             <div className="absolute inset-0 flex">
               {/* Then Photo */}
               <div className="w-1/2 p-1">
-                <div className="h-full relative overflow-hidden rounded-lg">
-                  <div className="absolute top-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                <div className="h-full relative overflow-hidden rounded-lg bg-gray-100">
+                  <div className="absolute top-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs z-10">
                     Then
                   </div>
                   <img
-                    src={photos[currentIndex].then}
-                    alt={`Then: ${photos[currentIndex].title}`}
+                    src={thenImageError ? currentPhoto.thenFallback : currentPhoto.then}
+                    alt={`Then: ${currentPhoto.title}`}
                     className="w-full h-full object-cover"
-                    onError={(e) => handleImageError(e, 'then')}
+                    onError={handleThenImageError}
+                    loading="eager"
                   />
                 </div>
               </div>
               
               {/* Now Photo */}
               <div className="w-1/2 p-1">
-                <div className="h-full relative overflow-hidden rounded-lg">
-                  <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                <div className="h-full relative overflow-hidden rounded-lg bg-gray-100">
+                  <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs z-10">
                     Now
                   </div>
                   <img
-                    src={photos[currentIndex].now}
-                    alt={`Now: ${photos[currentIndex].title}`}
+                    src={nowImageError ? currentPhoto.nowFallback : currentPhoto.now}
+                    alt={`Now: ${currentPhoto.title}`}
                     className="w-full h-full object-cover"
-                    onError={(e) => handleImageError(e, 'now')}
+                    onError={handleNowImageError}
+                    loading="eager"
                   />
                 </div>
               </div>
@@ -117,10 +135,10 @@ const PhotoMemories: React.FC = () => {
           {/* Caption */}
           <div className="text-center mt-4">
             <h3 className="text-xl font-pacifico text-quantum-deeprose">
-              {photos[currentIndex].title}
+              {currentPhoto.title}
             </h3>
             <p className="text-sm text-muted-foreground mt-2">
-              {photos[currentIndex].date} - {photos[currentIndex].description}
+              {currentPhoto.date} - {currentPhoto.description}
             </p>
           </div>
           
@@ -146,7 +164,11 @@ const PhotoMemories: React.FC = () => {
             {photos.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => {
+                  setCurrentIndex(index);
+                  setThenImageError(false);
+                  setNowImageError(false);
+                }}
                 className={`w-3 h-3 rounded-full ${index === currentIndex ? 'bg-quantum-deeprose' : 'bg-quantum-pink'}`}
                 aria-label={`Go to slide ${index + 1}`}
               ></button>
