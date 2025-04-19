@@ -4,7 +4,9 @@ import TimeGreeting from '@/components/TimeGreeting';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import TextToSpeech from '@/components/TextToSpeech';
 import ParticleBackground from '@/components/ParticleBackground';
-import { Heart, Calendar, PenTool, Share2, Lock } from 'lucide-react';
+import MemoryMap from '@/components/MemoryMap';
+import PoemGenerator from '@/components/PoemGenerator';
+import { Heart, Calendar, PenTool, Share2, Lock, Map, Sparkles } from 'lucide-react';
 
 const FeaturesPage: React.FC = () => {
   return (
@@ -21,7 +23,7 @@ const FeaturesPage: React.FC = () => {
           </p>
         </header>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           <div>
             <h2 className="text-2xl font-pacifico text-quantum-deeprose mb-6 flex items-center">
               <Heart className="mr-2" fill="#FFDEE2" />
@@ -39,12 +41,28 @@ const FeaturesPage: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-12">
+        <div className="mb-12">
           <h2 className="text-2xl font-pacifico text-quantum-deeprose mb-6 flex items-center">
             <PenTool className="mr-2" />
             Text-to-Speech Love Letter
           </h2>
           <TextToSpeech />
+        </div>
+        
+        <div className="mb-12">
+          <h2 className="text-2xl font-pacifico text-quantum-deeprose mb-6 flex items-center">
+            <Map className="mr-2" />
+            Memory Map
+          </h2>
+          <MemoryMap />
+        </div>
+        
+        <div className="mb-12">
+          <h2 className="text-2xl font-pacifico text-quantum-deeprose mb-6 flex items-center">
+            <Sparkles className="mr-2" />
+            Love Poem Generator
+          </h2>
+          <PoemGenerator />
         </div>
         
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">

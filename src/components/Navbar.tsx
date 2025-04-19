@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Heart, User, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import useMobile from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Navbar: React.FC = () => {
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
