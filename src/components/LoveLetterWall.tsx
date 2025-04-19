@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import AddNoteDialog from './AddNoteDialog';
 
 // Sample love notes data
 const loveNotes = [
@@ -60,6 +60,7 @@ const loveNotes = [
 ];
 
 const LoveLetterWall: React.FC = () => {
+  const [notes, setNotes] = useState(loveNotes);
   const [expandedNote, setExpandedNote] = useState<number | null>(null);
 
   const toggleNote = (id: number) => {
@@ -68,6 +69,13 @@ const LoveLetterWall: React.FC = () => {
     } else {
       setExpandedNote(id);
     }
+  };
+
+  const handleAddNote = (newNote: { content: string; date: string; color: string }) => {
+    setNotes(prevNotes => [{
+      id: prevNotes.length + 1,
+      ...newNote
+    }, ...prevNotes]);
   };
 
   return (
@@ -83,7 +91,7 @@ const LoveLetterWall: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {loveNotes.map((note) => (
+          {notes.map((note) => (
             <div 
               key={note.id}
               className={`${note.color} rounded-lg shadow-md overflow-hidden transform transition-all duration-300 ${
@@ -123,9 +131,7 @@ const LoveLetterWall: React.FC = () => {
         </div>
         
         <div className="mt-12 text-center">
-          <button className="bg-quantum-rosegold hover:bg-quantum-deeprose text-white rounded-full px-6 py-3 transition-colors duration-300 shadow-md">
-            Schedule a New Note
-          </button>
+          <AddNoteDialog onAddNote={handleAddNote} />
         </div>
       </div>
     </section>
