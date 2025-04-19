@@ -14,6 +14,7 @@ import LettersPage from "./pages/LettersPage";
 import GamesPage from "./pages/GamesPage";
 import HugPage from "./pages/HugPage";
 import Landing from "./pages/Landing";
+import FeaturesPage from "./pages/FeaturesPage";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/letters" element={<LettersPage />} />
             <Route path="/games" element={<GamesPage />} />
             <Route path="/hug" element={<HugPage />} />
+            <Route path="/features" element={<FeaturesPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
